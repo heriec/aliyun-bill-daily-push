@@ -1,0 +1,14 @@
+{
+  "name": "aliyun-bill-daily-push",
+  "version": "1.0.0",
+  "description": "阿里云每日账单推送",
+  "main": "n",
+  "scripts": {},
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@alicloud/bssopenapi20171214": "3.0.1",
+    "@alicloud/openapi-client": "^0.4.10",
+    "@alicloud/tea-util": "^1.4.9"
+  }
+}
