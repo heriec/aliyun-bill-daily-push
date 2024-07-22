@@ -1,10 +1,5 @@
-# -*- coding: utf-8 -*-
-# This file is auto-generated, don't edit it. Thanks.
-import json
 import os
-import sys
 
-import time
 from typing import List
 
 from alibabacloud_bssopenapi20171214.client import Client as BssOpenApi20171214Client
@@ -31,7 +26,7 @@ class AliyunClient:
         config.endpoint = f'business.aliyuncs.com'
         return BssOpenApi20171214Client(config)
 
-    def main(self) -> None:
+    def billList(self) -> None:
         client = self.create_client()
         query_bill_request = bss_open_api_20171214_models.QueryBillRequest(
             billing_cycle='2024-07',
@@ -42,14 +37,8 @@ class AliyunClient:
             response = client.query_bill_with_options(
                 query_bill_request, runtime)
             body = UtilClient.to_map(response.body)
-            json.dump(body, open('query_bill.json', 'w'), indent=4)
-            current_timestamp = time.time()
-            print(current_timestamp)
+            return body['Data']['Items']['Item']
         except Exception as error:
             print(error.message)
             print(error.data.get("Recommend"))
             UtilClient.assert_as_string(error.message)
-
-
-if __name__ == '__main__':
-    AliyunClient().main()
