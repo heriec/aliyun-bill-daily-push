@@ -26,10 +26,10 @@ class AliyunClient:
         config.endpoint = f'business.aliyuncs.com'
         return BssOpenApi20171214Client(config)
 
-    def billList(self) -> None:
+    def billList(self, month) -> None:
         client = self.create_client()
         query_bill_request = bss_open_api_20171214_models.QueryBillRequest(
-            billing_cycle='2024-07',
+            billing_cycle=month,
             page_size=100
         )
         runtime = util_models.RuntimeOptions()

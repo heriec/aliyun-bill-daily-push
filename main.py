@@ -7,7 +7,9 @@ from feishu import FeishuClient
 
 
 if __name__ == '__main__':
-    billList  = AliyunClient().billList()
+    # 获取当前年月2024-07
+    month = time.strftime("%Y-%m", time.localtime())
+    billList  = AliyunClient().billList(month)
     # json.dump(billList, open('query_bill.json', 'w'), indent=4)
     # 过滤前一天的账单    
     today = datetime.date.today()
