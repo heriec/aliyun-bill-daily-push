@@ -7,14 +7,11 @@ from feishu import FeishuClient
 
 
 if __name__ == '__main__':
-    # 获取当前年月2024-07
-    month = time.strftime("%Y-%m", time.localtime())
-    billList  = AliyunClient().billList(month)
-    # json.dump(billList, open('query_bill.json', 'w'), indent=4)
     # 过滤前一天的账单    
     today = datetime.date.today()
     yesterday = today - datetime.timedelta(days=1)   
-
+    billList  = AliyunClient().billList(yesterday.strftime('%Y-%m'))
+    # json.dump(billList, open('query_bill.json', 'w'), indent=4)
     yesterdayBillList = [item for item in billList if datetime.datetime.strptime(item["UsageStartTime"], f"%Y-%m-%d %H:%M:%S").date() == yesterday]
     feishuClient = FeishuClient()
     ids = feishuClient.findAll()
