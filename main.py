@@ -1,5 +1,6 @@
 
 import datetime
+import os
 from aliyun import AliyunClient
 from feishu import FeishuClient
 from feishuCard import FlybookRobotAlert
@@ -31,6 +32,6 @@ if __name__ == '__main__':
         result[type] = sum([item.value for item in cdnUsage])
             
     print(result)
-    a = FlybookRobotAlert("https://open.feishu.cn/open-apis/bot/v2/hook/51b9e4d8-10d7-4772-b175-4b94d5f2d734")
+    a = FlybookRobotAlert(os.environ['FEISHU_WEBHOOK'])
     a.send_message(yesterday, result['acc'], result['traf'])
     

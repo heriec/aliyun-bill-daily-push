@@ -88,5 +88,5 @@ class FlybookRobotAlert():
 
 if __name__ == '__main__':
     a = FlybookRobotAlert(
-        "https://open.feishu.cn/open-apis/bot/v2/hook/51b9e4d8-10d7-4772-b175-4b94d5f2d734")
+        "https://open.feishu.cn/open-apis/bot/v2/hook/xxxxxx")
     a.send_message(datetime.date.today(), 1860, 34372421)
