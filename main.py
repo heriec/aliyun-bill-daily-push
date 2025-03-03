@@ -12,18 +12,13 @@ if __name__ == '__main__':
     yesterday = today - datetime.timedelta(days=1)   
     billList  = AliyunClient().billList(yesterday.strftime('%Y-%m'))
 
-    # 过滤掉没有UsageStartTime的数据
-    # 其他付款的数据不在这里统计
-    billList = filter(lambda x: x["UsageStartTime"] != '', billList)
-
     # json.dump(billList, open('query_bill.json', 'w'), indent=4)
-    yesterdayBillList = [item for item in billList if datetime.datetime.strptime(item["UsageStartTime"], f"%Y-%m-%d %H:%M:%S").date() == yesterday]
+    # yesterdayBillList = [item for item in billList if datetime.datetime.strptime(item["UsageStartTime"], f"%Y-%m-%d %H:%M:%S").date() == yesterday]
     feishuClient = FeishuClient()
     ids = feishuClient.findAll()
     feishuClient.deleteRecord(ids)
-    feishuClient.addTableRecords(yesterdayBillList)
-    # for bill in yesterdayBillList:
-    #     feishuClient.addTableRecord(bill)
+    feishuClient.addTableRecords(billList)
+    feishuClient.upgradTableRecords(billList)
 
     ################# cdn ##################
     result = {}

@@ -9,7 +9,7 @@ class FeishuClient:
     def __init__(self):
         self.appToken = os.environ['APP_TOKEN']
         self.tableId = os.environ['TABLE_ID']
-        self.viewId =  os.environ['VIEW_ID']
+        self.viewId = os.environ['VIEW_ID']
         self.appId = os.environ['FEISHU_APP_ID']
         self.AppSecret = os.environ['FEISHU_APP_SECRET']
 
@@ -60,9 +60,6 @@ class FeishuClient:
         lark.logger.info(lark.JSON.marshal(response.data, indent=4))
 
     def addTableRecord(self, bill):
-        t = datetime.datetime.strptime(
-            bill["UsageStartTime"], f"%Y-%m-%d %H:%M:%S")
-
         fields = {
             "产品名称": bill['ProductName'],
             "代金券抵扣": bill['DeductedByCashCoupons'],
@@ -71,7 +68,6 @@ class FeishuClient:
             "应付金额": bill['PretaxAmount'],
             "优惠券抵扣": bill['DeductedByCoupons'],
             "抹零优惠": bill['RoundDownDiscount'],
-            "计费开始时间": t.timestamp()*1000
         }
         tableRecord = CreateAppTableRecordRequest.builder() \
             .app_token(self.appToken) \
@@ -83,7 +79,7 @@ class FeishuClient:
 
         response: CreateAppTableRecordResponse = self.client.bitable.v1.app_table_record.create(
             tableRecord)
-
+        print('@', response.code, response.msg, response.data)
         # 处理失败返回
         if not response.success():
             lark.logger.error(
@@ -93,8 +89,6 @@ class FeishuClient:
     def addTableRecords(self, bills):
         list = []
         for bill in bills:
-            t = datetime.datetime.strptime(
-                bill["UsageStartTime"], f"%Y-%m-%d %H:%M:%S")
             fields = {
                 "产品名称": bill['ProductName'],
                 "代金券抵扣": bill['DeductedByCashCoupons'],
@@ -103,7 +97,6 @@ class FeishuClient:
                 "应付金额": bill['PretaxAmount'],
                 "优惠券抵扣": bill['DeductedByCoupons'],
                 "抹零优惠": bill['RoundDownDiscount'],
-                "计费开始时间": t.timestamp()*1000
             }
             list.append(AppTableRecord.builder().fields(fields).build())
 
