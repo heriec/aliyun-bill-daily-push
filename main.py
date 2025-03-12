@@ -18,7 +18,6 @@ if __name__ == '__main__':
     ids = feishuClient.findAll()
     feishuClient.deleteRecord(ids)
     feishuClient.addTableRecords(billList)
-    feishuClient.upgradTableRecords(billList)
 
     ################# cdn ##################
     result = {}
