@@ -34,6 +34,7 @@ class AliyunClient:
         client = self.createBillClient()
         query_bill_request = bss_open_api_20171214_models.QueryBillRequest(
             billing_cycle=month,
+            type='PayAsYouGoBill',
             page_size=100
         )
         runtime = util_models.RuntimeOptions()
