@@ -19,13 +19,4 @@ if __name__ == '__main__':
     feishuClient.deleteRecord(ids)
     feishuClient.addTableRecords(billList)
 
-    ################# cdn ##################
-    result = {}
-    for type in ['acc', 'traf']:
-        cdnUsage = AliyunClient().cdnUsage(yesterday, "easygif.cn", type)
-        result[type] = sum([item.value for item in cdnUsage])
-            
-    print(result)
-    a = FlybookRobotAlert(os.environ['FEISHU_WEBHOOK'])
-    a.send_message(yesterday, result['acc'], result['traf'])
     
